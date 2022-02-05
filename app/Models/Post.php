@@ -11,6 +11,10 @@ class Post extends Model
     protected $fillable = [
         'created_at'
     ];
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
     public function getExcerptAttribute()
     {
@@ -21,4 +25,5 @@ class Post extends Model
 //        return $this->created_at->format('d/m/Y');
         return $this->created_at->diffForHumans();
     }
+
 }
