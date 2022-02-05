@@ -12,8 +12,16 @@ class LoginController extends Controller
     {
         $this->validateLogin($request);
         //login true
-
+        if (Auth::attempt($request->only('email','password'))){
+            return response()->json([
+                'token' => $request->user()->createToken($request->name)->plainTextToken,
+                'message' => 'Success',
+            ]);
+        }
         //login false
+        return response()->json([
+            'message' => 'Unauthorizeeeeed'
+        ],401);
     }
     public function validateLogin(Request $request)
     {
